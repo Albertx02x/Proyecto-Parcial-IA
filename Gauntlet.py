@@ -489,3 +489,33 @@ def dibujar_hud(jugador):
     texto_nivel = font_pequena.render(f"Nivel: {nivel_actual}/3", True, BLANCO)
     pantalla.blit(texto_nivel, (ANCHO - panel_ancho + 10, pos_y))
     pos_y += 40
+
+#Menu Principal
+
+def mostrar_menu():
+    pantalla.fill(NEGRO)
+    titulo = font_grande.render("GAUNTLET", True, VERDE)
+    iniciar = font.render("Iniciar partida (ENTER)", True, BLANCO)
+    salir = font.render("Salir (ESC)", True, BLANCO)
+    
+    pantalla.blit(titulo, (ANCHO//2 - titulo.get_width()//2, ALTO//4))
+    pantalla.blit(iniciar, (ANCHO//2 - iniciar.get_width()//2, ALTO//2))
+    pantalla.blit(salir, (ANCHO//2 - salir.get_width()//2, ALTO//1.5))
+    
+    pygame.display.flip()
+    
+    esperando = True
+    while esperando:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_RETURN:
+                    esperando = False
+                elif evento.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+            if evento.type == pygame.JOYBUTTONDOWN:
+                if evento.button == 1:  # Botón X para iniciar
+                    esperando = False
