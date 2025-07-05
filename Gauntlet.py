@@ -595,3 +595,43 @@ def mostrar_pausa():
                     pygame.quit()
                     sys.exit()
     return "continuar"
+
+#Ventana de nivel completado
+
+def mostrar_nivel_completado():
+    try:
+        nivel_completado_sound.play()
+    except:
+        pass
+    
+    pantalla.fill(NEGRO)
+    titulo = font_grande.render("NIVEL COMPLETADO", True, VERDE)
+    texto_puntos = font.render(f"Puntuación: {puntuacion}", True, BLANCO)
+    siguiente = font.render("Siguiente nivel (N)", True, BLANCO)
+    salir = font.render("Salir (ESC)", True, BLANCO)
+    
+    pantalla.blit(titulo, (ANCHO//2 - titulo.get_width()//2, ALTO//8))
+    pantalla.blit(texto_puntos, (ANCHO//2 - texto_puntos.get_width()//2, ALTO//3))
+    pantalla.blit(siguiente, (ANCHO//2 - siguiente.get_width()//2, ALTO//2))
+    pantalla.blit(salir, (ANCHO//2 - salir.get_width()//2, ALTO//1.5))
+    
+    pygame.display.flip()
+    
+    esperando = True
+    while esperando:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_n:
+                    esperando = False
+                    return "siguiente"
+                elif evento.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+            if evento.type == pygame.JOYBUTTONDOWN:
+                if evento.button == 1:
+                    esperando = False
+                    return "siguiente"
+    return "salir"
