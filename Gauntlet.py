@@ -680,3 +680,44 @@ def mostrar_juego_completado():
                     esperando = False
                     return "reiniciar"
     return "salir"
+
+#ventana Game over
+
+def mostrar_game_over():
+    global puntuacion
+    try:
+        game_over_sound.play()
+    except:
+        pass
+    
+    pantalla.fill(NEGRO)
+    titulo = font_grande.render("GAME OVER", True, ROJO)
+    texto_puntos = font.render(f"Puntuación final: {puntuacion}", True, BLANCO)
+    reiniciar = font.render("Reiniciar (R)", True, BLANCO)
+    salir = font.render("Salir (ESC)", True, ROJO)
+    
+    pantalla.blit(titulo, (ANCHO//2 - titulo.get_width()//2, ALTO//8))
+    pantalla.blit(texto_puntos, (ANCHO//2 - texto_puntos.get_width()//2, ALTO//3))
+    pantalla.blit(reiniciar, (ANCHO//2 - reiniciar.get_width()//2, ALTO//2))
+    pantalla.blit(salir, (ANCHO//2 - salir.get_width()//2, ALTO//1.5))
+    
+    pygame.display.flip()
+    
+    esperando = True
+    while esperando:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_r:
+                    esperando = False
+                    return "reiniciar"
+                elif evento.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+            if evento.type == pygame.JOYBUTTONDOWN:
+                if evento.button == 1:
+                    esperando = False
+                    return "reiniciar"
+    return "salir"
