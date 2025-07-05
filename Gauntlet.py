@@ -721,3 +721,47 @@ def mostrar_game_over():
                     esperando = False
                     return "reiniciar"
     return "salir"
+
+#Niveles de juego
+
+def inicializar_nivel(nivel):
+    global mapa, salida_nivel, FILAS, COLUMNAS, ANCHO, ALTO, TILE, nivel_actual
+    
+    nivel_actual = nivel
+    
+    if nivel == 1:
+        mapa = mapa_nivel1
+    elif nivel == 2:
+        mapa = mapa_nivel2
+    elif nivel == 3:
+        mapa = mapa_nivel3
+    
+    FILAS = len(mapa)
+    COLUMNAS = len(mapa[0])
+    salida_nivel = (COLUMNAS * TILE - TILE * 1.5, FILAS * TILE - TILE * 1.5)
+    
+    info = pygame.display.Info()
+    if info.current_w < ANCHO_BASE + 200 or info.current_h < ALTO_BASE:
+        TILE = min(20, (info.current_w - 200) // COLUMNAS, info.current_h // FILAS)
+    
+    ANCHO = COLUMNAS * TILE + 200
+    ALTO = FILAS * TILE
+    
+    pantalla = pygame.display.set_mode((ANCHO, ALTO))
+    
+    jugador = Jugador()
+    todos = pygame.sprite.Group(jugador)
+    proyectiles = pygame.sprite.Group()
+    enemigos = pygame.sprite.Group()
+    
+   # Para que los enemigos esten en partes aletatorias
+    for _ in range(4 + nivel):  
+        while True:
+            x, y = TILE * random.randint(1, COLUMNAS-2), TILE * random.randint(1, FILAS-2)
+            if not colision_pared(x, y):
+                enemigo = Enemigo(x, y)
+                enemigos.add(enemigo)
+                todos.add(enemigo)
+                break
+    
+    return jugador, todos, proyectiles, enemigos
