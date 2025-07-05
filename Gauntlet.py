@@ -57,6 +57,7 @@ pygame.display.set_caption("Gauntlet")
 FPS = 60
 
 #Colores
+
 NEGRO = (0, 0, 0)
 BLANCO = (255, 255, 255)
 GRIS = (100, 100, 100)
@@ -66,5 +67,26 @@ AZUL = (50, 50, 200)
 VERDE = (0, 200, 0)
 AMARILLO = (255, 255, 0)
 MORADO = (128, 0, 128)
+
+puntuacion = 0
+
+#Fuente de letras y tamano 
+
+font = pygame.font.SysFont("Arial", 36)
+font_pequena = pygame.font.SysFont("Arial", 20)
+font_grande = pygame.font.SysFont("Arial", 72)
+
+#Sonido
+
+pygame.mixer.init()
+try:
+    pygame.mixer.music.load("C:\\Users\\alber\\Desktop\\Parcial\\musica.mp3")
+    pygame.mixer.music.play(-1)
+    disparo_sonido = pygame.mixer.Sound("C:\\Users\\alber\\Desktop\\Parcial\\disparo.wav")
+    game_over_sound = pygame.mixer.Sound("C:\\Users\\alber\\Desktop\\Parcial\\game_over.wav")
+    nivel_completado_sound = pygame.mixer.Sound("C:\\Users\\alber\\Desktop\\Parcial\\nivel_completado.wav")
+    juego_completado_sound = pygame.mixer.Sound("C:\\Users\\alber\\Desktop\\Parcial\\juego_completado.wav")
+except:
+    print("No se encontraron archivos de sonido")
 
 
