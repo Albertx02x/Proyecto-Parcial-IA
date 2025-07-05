@@ -89,4 +89,32 @@ try:
 except:
     print("No se encontraron archivos de sonido")
 
+#Sprites
 
+jugador_sprites = {
+    "arriba": pygame.image.load("C:\\Users\\alber\\Desktop\\Parcial\\jugador\\arriba.png"),
+    "abajo": pygame.image.load("C:\\Users\\alber\\Desktop\\Parcial\\jugador\\abajo.png"),
+    "izquierda": pygame.image.load("C:\\Users\\alber\\Desktop\\Parcial\\jugador\\izquierda.png"),
+    "derecha": pygame.image.load("C:\\Users\\alber\\Desktop\\Parcial\\jugador\\derecha.png")
+}
+
+proyectil_sprites = {
+    "arriba": pygame.image.load("C:\\Users\\alber\\Desktop\\Parcial\\disparo\\arriba.png"),
+    "abajo": pygame.image.load("C:\\Users\\alber\\Desktop\\Parcial\\disparo\\abajo.png"),
+    "izquierda": pygame.image.load("C:\\Users\\alber\\Desktop\\Parcial\\disparo\\izquierda.png"),
+    "derecha": pygame.image.load("C:\\Users\\alber\\Desktop\\Parcial\\disparo\\derecha.png")
+}
+
+enemigo_imagen = pygame.image.load("C:\\Users\\alber\\Desktop\\Parcial\\enemigo.png")
+salida_imagen = pygame.image.load("C:\\Users\\alber\\Desktop\\Parcial\\salida.png")
+
+
+#Configuracion de control
+
+def inicializar_control():
+    if pygame.joystick.get_count() > 0:
+        joystick = pygame.joystick.Joystick(0)
+        joystick.init()
+        print(f"Control conectado: {joystick.get_name()}")
+        return joystick
+    return None
