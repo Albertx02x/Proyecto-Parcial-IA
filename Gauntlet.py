@@ -635,3 +635,48 @@ def mostrar_nivel_completado():
                     esperando = False
                     return "siguiente"
     return "salir"
+
+#Juego completado
+
+def mostrar_juego_completado():
+    try:
+        juego_completado_sound.play()
+    except:
+        pass
+    
+    pantalla.fill(NEGRO)
+    
+    # Configuración de fuentes y textos
+    titulo = font_grande.render("¡JUEGO COMPLETADO!", True, VERDE)
+    subtitulo = font.render("Felicidades", True, AMARILLO)
+    texto_puntos = font.render(f"Puntuación final: {puntuacion}", True, BLANCO)
+    reiniciar = font.render("Reiniciar (R)", True, BLANCO)
+    salir = font.render("Salir (ESC)", True, BLANCO)
+    
+    # Posiciones fijas para cada elemento
+    pantalla.blit(titulo, (ANCHO//2 - titulo.get_width()//2, ALTO//9))
+    pantalla.blit(subtitulo, (ANCHO//2 - subtitulo.get_width()//2, ALTO//3.7))
+    pantalla.blit(texto_puntos, (ANCHO//2 - texto_puntos.get_width()//2, ALTO//2.5))
+    pantalla.blit(reiniciar, (ANCHO//2 - reiniciar.get_width()//2, ALTO//2))
+    pantalla.blit(salir, (ANCHO//2 - salir.get_width()//2, ALTO//1.5))
+    
+    pygame.display.flip()
+    
+    esperando = True
+    while esperando:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_r:
+                    esperando = False
+                    return "reiniciar"
+                elif evento.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+            if evento.type == pygame.JOYBUTTONDOWN:
+                if evento.button == 1:
+                    esperando = False
+                    return "reiniciar"
+    return "salir"
